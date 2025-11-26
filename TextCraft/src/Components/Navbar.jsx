@@ -5,7 +5,7 @@ export default function Navbar(props) {
   return (
     <>
       <nav
-        className={`navbar navbar-expand-lg navbar-${props.mode} bg-${props.mode}`}
+        className={`navbar fixed-top navbar-expand-lg navbar-${props.mode} bg-${props.mode}`}
       >
         <div className="container-fluid">
           <Link className="navbar-brand" to="/">
@@ -34,7 +34,7 @@ export default function Navbar(props) {
                   {props.AboutText}
                 </Link>
               </li>
-            </ul> 
+            </ul>
             <div
               className={`form-check form-switch text-${
                 props.mode === "light" ? "dark" : "light"
