@@ -3,6 +3,7 @@ import Navbar from "./Components/Navbar";
 import TextForm from "./Components/TextForm";
 import About from "./Components/About";
 import Alert from "./Components/Alert";
+import Footer from "./Components/Footer";
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
@@ -32,7 +33,7 @@ function App() {
   return (
     <>
       <Navbar
-        title="TextUtility"
+        title="TextCraft"
         AboutText="About Us"
         mode={mode}
         toggleMode={toggleMode}
@@ -56,6 +57,7 @@ function App() {
 
         <Route path="/about" element={<About mode={mode} />} />
       </Routes>
+      <Footer />
     </>
   );
 }
