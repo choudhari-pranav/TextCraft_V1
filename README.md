@@ -1,4 +1,3 @@
-# TextCraft_V1
 # ✨ TextCraft
 
 TextCraft is a simple and lightweight text formatting tool built using **React + Vite**.  
