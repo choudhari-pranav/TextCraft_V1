@@ -1,70 +1,90 @@
+import { useState } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import styles from "./Navbar.module.css";
+import { IoSparkles } from "react-icons/io5";
+import { MdHome, MdInfo } from "react-icons/md";
+import { HiMenu, HiX } from "react-icons/hi";
+import { BsSunFill, BsMoonStarsFill } from "react-icons/bs";
 
 export default function Navbar(props) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+  const isActive = (path) => {
+    return location.pathname === path;
+  };
+
   return (
-    <>
-      <nav
-        className={`navbar fixed-top navbar-expand-lg navbar-${props.mode} bg-${props.mode}`}
-      >
-        <div className="container-fluid">
-          <Link className="navbar-brand" to="/">
-            {props.title}
-          </Link>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <Link className="nav-link " aria-current="page" to="/">
-                  Home
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/about">
-                  {props.AboutText}
-                </Link>
-              </li>
-            </ul>
-            <div
-              className={`form-check form-switch text-${
-                props.mode === "light" ? "dark" : "light"
-              }`}
-            >
-              <input
-                className="form-check-input"
-                onClick={props.toggleMode}
-                type="checkbox"
-                id="flexSwitchCheckDefault"
-              />
-              <label
-                className="form-check-label"
-                htmlFor="flexSwitchCheckDefault"
+    <nav className={`${styles.navbar} ${props.mode === 'dark' ? styles.navbarDark : ''}`}>
+      <div className={styles.navbarContainer}>
+        <Link className={styles.brand} to="/">
+          <IoSparkles className={styles.brandIcon} />
+          {props.title}
+        </Link>
+
+        <button className={styles.navToggler} onClick={toggleMenu}>
+          {menuOpen ? <HiX /> : <HiMenu />}
+        </button>
+
+        <div className={`${styles.navMenu} ${menuOpen ? styles.navMenuMobile : ''}`}>
+          <ul className={styles.navMenu}>
+            <li className={styles.navItem}>
+              <Link
+                className={`${styles.navLink} ${isActive('/') ? styles.navLinkActive : ''}`}
+                to="/"
+                onClick={() => setMenuOpen(false)}
               >
-                Dark Mode
-              </label>
+                <MdHome /> Home
+              </Link>
+            </li>
+            <li className={styles.navItem}>
+              <Link
+                className={`${styles.navLink} ${isActive('/about') ? styles.navLinkActive : ''}`}
+                to="/about"
+                onClick={() => setMenuOpen(false)}
+              >
+                <MdInfo /> {props.AboutText}
+              </Link>
+            </li>
+          </ul>
+
+          <div className={styles.navRight}>
+            <div className={styles.themeToggle} onClick={props.toggleMode}>
+              <span className={styles.toggleLabel}>
+                {props.mode === 'light' ? (
+                  <>
+                    <BsSunFill className={styles.toggleIcon} /> Light
+                  </>
+                ) : (
+                  <>
+                    <BsMoonStarsFill className={styles.toggleIcon} /> Dark
+                  </>
+                )}
+              </span>
+              <div className={`${styles.toggleSwitch} ${props.mode === 'dark' ? styles.toggleSwitchActive : ''}`}>
+                <div className={styles.toggleSlider}></div>
+              </div>
             </div>
           </div>
         </div>
-      </nav>
-    </>
+      </div>
+    </nav>
   );
 }
+
 Navbar.propTypes = {
   title: PropTypes.string,
   AboutText: PropTypes.string,
+  mode: PropTypes.string,
+  toggleMode: PropTypes.func,
 };
 
 Navbar.defaultProps = {
-  title: "Set title here",
-  AboutText: "About text here",
+  title: "TextCraft",
+  AboutText: "About",
 };

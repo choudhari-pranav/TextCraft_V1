@@ -1,102 +1,66 @@
 import React from "react";
+import styles from "./About.module.css";
+import { MdAnalytics, MdMoneyOff, MdDevices } from "react-icons/md";
 
-export default function About(props) {
-  let myStyle = {
-    color: props.mode === "dark" ? "white" : "#042743",
-    backgroundColor: props.mode === "dark" ? "rgb(36 74 104)" : "white",
-  };
+export default function About({ mode }) {
+  const isDark = mode === "dark";
 
   return (
-    <div className="container">
-      <h1
-        className="my-3"
-        style={{ color: props.mode === "dark" ? "white" : "#042743" }}
-      >
-        About Us
-      </h1>
-      <div className="accordion" id="accordionExample">
-        <div className="accordion-item">
-          <h2 className="accordion-header" id="headingOne">
-            <button
-              className="accordion-button"
-              type="button"
-              style={myStyle}
-              data-bs-toggle="collapse"
-              data-bs-target="#collapseOne"
-              aria-expanded="true"
-              aria-controls="collapseOne"
-            >
-              <strong>Analyze Your text </strong>
-            </button>
-          </h2>
-          <div
-            id="collapseOne"
-            className="accordion-collapse collapse show"
-            aria-labelledby="headingOne"
-            data-bs-parent="#accordionExample"
-          >
-            <div className="accordion-body" style={myStyle}>
-              TextCraft gives you a way to analyze your text quickly and
-              efficiently. Be it word count, character count and time to read
-              text.
-            </div>
+    <div className={styles.aboutContainer}>
+      <div className={styles.titleWrapper}>
+        <h1 className={`${styles.title} ${isDark ? styles.titleDark : ''}`}>
+          About TextCraft
+        </h1>
+        <p className={`${styles.subtitle} ${isDark ? styles.subtitleDark : ''}`}>
+          Your ultimate companion for text manipulation and analysis.
+          Simple, fast, and powerful tools right in your browser.
+        </p>
+      </div>
+
+      <div className={styles.featuresGrid}>
+        {/* Feature 1 */}
+        <div className={`${styles.featureCard} ${isDark ? styles.featureCardDark : ''}`}>
+          <div className={`${styles.iconWrapper} ${styles.iconAnalyze}`}>
+            <MdAnalytics />
           </div>
+          <h2 className={`${styles.featureTitle} ${isDark ? styles.featureTitleDark : ''}`}>
+            Analyze Your Text
+          </h2>
+          <p className={`${styles.featureDescription} ${isDark ? styles.featureDescriptionDark : ''}`}>
+            TextCraft gives you a way to analyze your text quickly and efficiently.
+            Get instant insights on word count, character count, and estimated reading time
+            to optimize your content.
+          </p>
         </div>
-        <div className="accordion-item">
-          <h2 className="accordion-header" id="headingTwo">
-            <button
-              className="accordion-button collapsed"
-              style={myStyle}
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapseTwo"
-              aria-expanded="false"
-              aria-controls="collapseTwo"
-            >
-              <strong>Free to use </strong>
-            </button>
-          </h2>
-          <div
-            id="collapseTwo"
-            className="accordion-collapse collapse"
-            aria-labelledby="headingTwo"
-            data-bs-parent="#accordionExample"
-          >
-            <div className="accordion-body" style={myStyle}>
-              TextCraft is a free character counter tool that provides instant
-              character count & word count statistics for a given text.
-              TextCraft reports the number of words and characters. Thus it is
-              suitable for writing text with word/ character limit.
-            </div>
+
+        {/* Feature 2 */}
+        <div className={`${styles.featureCard} ${isDark ? styles.featureCardDark : ''}`}>
+          <div className={`${styles.iconWrapper} ${styles.iconFree}`}>
+            <MdMoneyOff />
           </div>
+          <h2 className={`${styles.featureTitle} ${isDark ? styles.featureTitleDark : ''}`}>
+            Free to Use
+          </h2>
+          <p className={`${styles.featureDescription} ${isDark ? styles.featureDescriptionDark : ''}`}>
+            TextCraft is a completely free character counter tool that provides instant
+            statistics. No hidden costs or subscriptions - just powerful tools available
+            whenever you need them.
+          </p>
         </div>
-        <div className="accordion-item">
-          <h2 className="accordion-header" id="headingThree">
-            <button
-              className="accordion-button collapsed"
-              style={myStyle}
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapseThree"
-              aria-expanded="false"
-              aria-controls="collapseThree"
-            >
-              <strong>Browser Compatible </strong>
-            </button>
-          </h2>
-          <div
-            id="collapseThree"
-            className="accordion-collapse collapse"
-            aria-labelledby="headingThree"
-            data-bs-parent="#accordionExample"
-          >
-            <div className="accordion-body" style={myStyle}>
-              This word counter software works in any web browsers such as
-              Chrome, Firefox, Internet Explorer, Safari, Opera. It suits to
-              count characters in facebook, blog, books, excel document, pdf
-              document, essays, etc.
-            </div>
+
+        {/* Feature 3 */}
+        <div className={`${styles.featureCard} ${isDark ? styles.featureCardDark : ''}`}>
+          <div className={`${styles.iconWrapper} ${styles.iconBrowser}`}>
+            <MdDevices />
           </div>
+          <h2 className={`${styles.featureTitle} ${isDark ? styles.featureTitleDark : ''}`}>
+            Browser Compatible
+          </h2>
+          <p className={`${styles.featureDescription} ${isDark ? styles.featureDescriptionDark : ''}`}>
+            This software works seamlessly in any web browser such as Chrome, Firefox,
+            Safari, and Opera. Perfect for counting characters for Facebook, blogs,
+            books, Excel documents, and more.
+          </p>
         </div>
       </div>
     </div>

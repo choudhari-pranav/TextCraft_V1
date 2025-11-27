@@ -1,0 +1,186 @@
+/* About Page Modern Styling */
+
+.aboutContainer {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: 80vh;
+}
+
+.titleWrapper {
+    text-align: center;
+    margin-bottom: 4rem;
+    animation: slideDown 0.8s ease forwards;
+}
+
+.title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+    display: inline-block;
+}
+
+.titleDark {
+    background: linear-gradient(135deg, #a3b8ff 0%, #e0c3fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #64748b;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.subtitleDark {
+    color: #cbd5e1;
+}
+
+.featuresGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.featureCard {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: all 0.4s ease;
+    animation: fadeIn 0.8s ease forwards;
+    opacity: 0;
+    transform: translateY(20px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+}
+
+.featureCardDark {
+    background: rgba(30, 41, 59, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.featureCard:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(102, 126, 234, 0.15);
+    border-color: #667eea;
+}
+
+.featureCardDark:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    border-color: #764ba2;
+}
+
+.iconWrapper {
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.iconAnalyze {
+    background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+    color: #6b4c9a;
+}
+
+.iconFree {
+    background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+    color: #2c7a7b;
+}
+
+.iconBrowser {
+    background: linear-gradient(135deg, #fccb90 0%, #d57eeb 100%);
+    color: #97266d;
+}
+
+.featureCard:hover .iconWrapper {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.featureTitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+}
+
+.featureTitleDark {
+    color: #f1f5f9;
+}
+
+.featureDescription {
+    color: #64748b;
+    line-height: 1.7;
+    font-size: 1rem;
+    margin: 0;
+}
+
+.featureDescriptionDark {
+    color: #cbd5e1;
+}
+
+/* Animations */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Staggered animation delays */
+.featureCard:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.featureCard:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.featureCard:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .aboutContainer {
+        padding: 2rem 1rem;
+    }
+
+    .title {
+        font-size: 2.5rem;
+    }
+
+    .featuresGrid {
+        grid-template-columns: 1fr;
+    }
+}

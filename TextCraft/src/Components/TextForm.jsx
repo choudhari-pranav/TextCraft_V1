@@ -1,20 +1,23 @@
 import React, { useState } from "react";
+import styles from "./TextForm.module.css";
+import { HiOutlineArrowUp, HiOutlineArrowDown } from "react-icons/hi";
+import { MdContentCopy, MdDeleteOutline } from "react-icons/md";
+import { TbSparkles } from "react-icons/tb";
+import { IoStatsChartOutline } from "react-icons/io5";
+import { MdPreview } from "react-icons/md";
 
 export default function TextForm(props) {
   const handleOnChange = (event) => {
-    // console.log("On change");
     setText(event.target.value);
   };
 
   const handleUpClick = () => {
-    // console.log("Uppercase was clicked");
     let newText = text.toUpperCase();
     setText(newText);
     props.showAlert("Converted to uppercase!", "success");
   };
 
   const handleLowClick = () => {
-    // console.log("Uppercase was clicked");
     let newText = text.toLowerCase();
     setText(newText);
     props.showAlert("Converted to lowercase!", "success");
@@ -25,108 +28,106 @@ export default function TextForm(props) {
     setText(newText);
     props.showAlert("Text Cleared!", "success");
   };
+
   const handleCopy = () => {
-  
-    //The Clipboard interface's writeText() property writes the specified text string to the system clipboard.
     navigator.clipboard.writeText(text);
-    // document.getSelection().removeAllRanges();
     props.showAlert("Copied to Clipboard!", "success");
   };
 
   const handleExtraSpaces = () => {
-    let newText = text.split(/[ ]+/); //use RegExp Object A regular expression is a pattern of characters.
+    let newText = text.split(/[ ]+/);
     setText(newText.join(" "));
     props.showAlert("Extra spaces removed!", "success");
   };
 
   const [text, setText] = useState("");
-  // text = "new text"; // Wrong way to change the state
-  // setText("new text"); // Correct way to change the state
+
+  const wordCount = text.split(/\s+/).filter((element) => element.length !== 0).length;
+  const charCount = text.replace(/\s+/g, '').length;
+  const readingTime = (0.008 * wordCount).toFixed(2);
+
   return (
-    <>
-      <div
-        className="container"
-        style={{ color: props.mode === "dark" ? "white" : "#042743" }}
-      >
-        <h1 className="mb-2"> {props.heading}</h1>
-        <div className="mb-3">
+    <div className={`${styles.textFormContainer} ${props.mode === "dark" ? styles.darkMode : ""}`}>
+      <div className={styles.formCard}>
+        <h1 className={styles.title}>{props.heading}</h1>
+
+        <div className={styles.textareaWrapper}>
           <textarea
-            className="form-control"
+            className={styles.textarea}
             value={text}
             onChange={handleOnChange}
             id="myBox"
-            style={{
-              backgroundColor: props.mode === "dark" ? "#13466e" : "white",
-              color: props.mode === "dark" ? "white" : "#042743",
-            }}
-            rows="8"
+            rows="10"
+            placeholder="Enter your text here to transform it..."
           ></textarea>
         </div>
-        <button
-          disabled={text.length === 0}
-          className="btn btn-primary mx-2 my-1
-            "
-          onClick={handleUpClick}
-        >
-          Convert to UpperCase
-        </button>
-        <button
-          disabled={text.length === 0}
-          className="btn btn-primary mx-2 my-1
-            "
-          onClick={handleLowClick}
-        >
-          Convert to LowerCase
-        </button>
-        <button
-          disabled={text.length === 0}
-          className="btn btn-primary mx-2 my-1
-            "
-          onClick={handleClearClick}
-        >
-          Clear Text
-        </button>
-        <button
-          disabled={text.length === 0}
-          className="btn btn-primary mx-2 my-1
-            "
-          onClick={handleExtraSpaces}
-        >
-          Extra Spaces
-        </button>
-        <button
-          disabled={text.length === 0}
-          className="btn btn-primary mx-2 my-1
-            "
-          onClick={handleCopy}
-        >
-          Copy Text
-        </button>
+
+        <div className={styles.buttonGroup}>
+          <button
+            disabled={text.length === 0}
+            className={styles.button}
+            onClick={handleUpClick}
+          >
+            <HiOutlineArrowUp /> UPPERCASE
+          </button>
+          <button
+            disabled={text.length === 0}
+            className={styles.button}
+            onClick={handleLowClick}
+          >
+            <HiOutlineArrowDown /> lowercase
+          </button>
+          <button
+            disabled={text.length === 0}
+            className={styles.button}
+            onClick={handleClearClick}
+          >
+            <MdDeleteOutline /> Clear
+          </button>
+          <button
+            disabled={text.length === 0}
+            className={styles.button}
+            onClick={handleExtraSpaces}
+          >
+            <TbSparkles /> Remove Spaces
+          </button>
+          <button
+            disabled={text.length === 0}
+            className={styles.button}
+            onClick={handleCopy}
+          >
+            <MdContentCopy /> Copy
+          </button>
+        </div>
       </div>
 
-      <div
-        className="container my-2"
-        style={{ color: props.mode === "dark" ? "white" : "#042743" }}
-      >
-        <h4>Your Text Summary</h4>
-        <p>
-          Number of Characters :- {text.replace(/\s+/g,'').length} and Number of words :-
-          {
-            text.split(/\s+/).filter((element) => {
-              return element.length !== 0;
-            }).length
-          }{" "}
-          in text
-        </p>
-        <p>
-          Maximum Time to read this text is :-{" "}
-          {0.008 * text.split(" ").filter((element)=>{return element.length!==0}).length} minutes to read..
-        </p>
-        <p>
-          <h3>Preview</h3>
-          {text.length > 0 ? text : "Nothing to preview ..."}
-        </p>
+      <div className={styles.summaryCard}>
+        <h4 className={styles.summaryTitle}><IoStatsChartOutline /> Text Statistics</h4>
+
+        <div className={styles.statItem}>
+          <span className={styles.statLabel}>Characters:</span>
+          <span className={styles.statValue}>{charCount}</span>
+        </div>
+
+        <div className={styles.statItem}>
+          <span className={styles.statLabel}>Words:</span>
+          <span className={styles.statValue}>{wordCount}</span>
+        </div>
+
+        <div className={styles.statItem}>
+          <span className={styles.statLabel}>Reading Time:</span>
+          <span className={styles.statValue}>{readingTime} minutes</span>
+        </div>
+
+        <div className={styles.previewSection}>
+          <h3 className={styles.previewTitle}><MdPreview /> Preview</h3>
+          {text.length > 0 ? (
+            <div className={styles.previewText}>{text}</div>
+          ) : (
+            <div className={styles.emptyPreview}>Nothing to preview yet...</div>
+          )}
+        </div>
       </div>
-    </>
+    </div>
   );
 }
